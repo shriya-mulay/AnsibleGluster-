@@ -4,8 +4,8 @@
   - name: subscribe to RedHat repo
     redhat_subscription:
       state: present
-      username: skandark@redhat.com
-      password: travelxp@123
+      username: 
+      password: 
       pool_ids: 8a85f9815bb07800015bb08404d71143
   - name: Disable all repositories
     rhsm_repository:
