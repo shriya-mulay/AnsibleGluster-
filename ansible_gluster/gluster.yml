@@ -6,7 +6,7 @@
       state: present
       username: 
       password: 
-      pool_ids: 8a85f9815bb07800015bb08404d71143
+      pool_ids: 
   - name: Disable all repositories
     rhsm_repository:
       name: '*'
