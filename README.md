@@ -1,5 +1,5 @@
 # AnsibleGluster-
 
-Installing a single node gluster cluster using Ansible .
+Installing a three node gluster cluster using Ansible .
 
 
