@@ -1,0 +1,42 @@
+---
+- hosts: nodes
+  tasks:
+  vars_files:
+      - cred.yml
+  tasks:
+  - name: subscribe to RedHat repo
+    redhat_subscription:
+      state: present
+      username: "{{username}}"
+      password: "{{password}}"
+      pool_ids: "{{poolid}}"
+
+  - name: Disable all repositories
+    rhsm_repository:
+      name: '*'
+      state: disabled
+  - name: Enable all repositories starting with rhel-7-server
+    rhsm_repository:
+      name: rhel-7-server-rpms
+      state: enabled
+  - name: Enable all repositories starting with rhel-gluster
+    rhsm_repository:
+      name: rh-gluster-3-for-rhel-7-server-rpms
+      state: enabled
+  - name: system update
+    yum:
+      name: '*'
+      state: latest
+  - name: Reboot system
+    shell: "sleep5 && reboot"
+    async: 1
+    poll: 0
+  - name: Wait for system to become reachable
+    wait_for_connection:
+      delay: 50
+      timeout: 300
+      connect_timeout: 20
+  - name: install redhat storage server
+    yum:
+      name:  redhat-storage-server
+      state: latest
